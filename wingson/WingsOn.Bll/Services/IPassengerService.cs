@@ -11,5 +11,7 @@ namespace WingsOn.Bll.Services
         Person GetPassenger(int id);
 
         Person CreatePassenger(Person passenger);
+
+        void UpdatePassenger(int id, Person passenger);
     }
 }

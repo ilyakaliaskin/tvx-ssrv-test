@@ -28,6 +28,7 @@ namespace WingsOn.Api.Controllers
         public ActionResult Get(int id)
         {
             var flight = Mapper.Map<FlightDto>(_flightService.GetFlight(id));
+
             return new JsonResult(flight);
         }
 
@@ -35,6 +36,7 @@ namespace WingsOn.Api.Controllers
         public ActionResult Get(string number)
         {
             var flight = Mapper.Map<FlightDto>(_flightService.GetFlight(number));
+
             return new JsonResult(flight);
         }
 
@@ -42,6 +44,7 @@ namespace WingsOn.Api.Controllers
         public ActionResult GetFlightPassengers(string number)
         {
             var flight = Mapper.Map<List<PersonDto>>(_flightService.GetFlightPassengers(number));
+
             return new JsonResult(flight);
         }
     }

@@ -5,6 +5,7 @@ using WingsOn.Api.Models;
 using WingsOn.Api.Queries;
 using WingsOn.Bll.SearchCriteria;
 using WingsOn.Bll.Services;
+using WingsOn.Domain;
 
 namespace WingsOn.Api.Controllers
 {
@@ -23,7 +24,9 @@ namespace WingsOn.Api.Controllers
         public ActionResult Get([FromQuery] PassengerQuery passengerQuery)
         {
             var passengerSearch = Mapper.Map<PassengerQuery, PersonSearchCriterion>(passengerQuery);
+
             var passengers = Mapper.Map<List<PersonDto>>(_passengerService.GetPassengers(passengerSearch));
+
             return new JsonResult(passengers);
         }
 
@@ -31,7 +34,18 @@ namespace WingsOn.Api.Controllers
         public ActionResult Get(int id)
         {
             var passenger = Mapper.Map<PersonDto>(_passengerService.GetPassenger(id));
+
             return new JsonResult(passenger);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] PersonDto personDto)
+        {
+            var passenger = Mapper.Map<Person>(personDto);
+
+            _passengerService.UpdatePassenger(id, passenger);
+
+            return Ok();
         }
     }
 }

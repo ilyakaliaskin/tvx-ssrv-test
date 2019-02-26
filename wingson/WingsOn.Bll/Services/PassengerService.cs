@@ -34,6 +34,13 @@ namespace WingsOn.Bll.Services
             return _personRepository.Get(passenger.Id);
         }
 
+        public void UpdatePassenger(int id, Person passenger)
+        {
+            passenger.Id = id;
+
+            _personRepository.Save(passenger);
+        }
+
         private int GetNewPersonId()
         {
             return _personRepository.GetAll().Max(person => person.Id) + 1;

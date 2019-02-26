@@ -29,6 +29,7 @@ namespace WingsOn.Api.Controllers
         public ActionResult Get(int id)
         {
             var booking = Mapper.Map<BookingDto>(_bookingService.GetBooking(id));
+
             return new JsonResult(booking);
         }
 
@@ -36,6 +37,7 @@ namespace WingsOn.Api.Controllers
         public ActionResult Post([FromBody] CreateBookingDto createBookingDto)
         {
             var createBooking = Mapper.Map<CreateBooking>(createBookingDto);
+
             var booking = Mapper.Map<BookingDto>(_bookingService.CreateBooking(createBooking));
 
             return new JsonResult(booking);
