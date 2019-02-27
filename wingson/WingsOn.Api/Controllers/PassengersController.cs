@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using WingsOn.Api.Models;
 using WingsOn.Api.Queries;
@@ -44,6 +45,20 @@ namespace WingsOn.Api.Controllers
             var passenger = Mapper.Map<Person>(personDto);
 
             _passengerService.UpdatePassenger(id, passenger);
+
+            return Ok();
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult Patch(int id, [FromBody] JsonPatchDocument<PersonDto> personPatch)
+        {
+            var personDto = Mapper.Map<PersonDto>(_passengerService.GetPassenger(id));
+            
+            personPatch.ApplyTo(personDto);
+
+            var person = Mapper.Map<Person>(personDto);
+
+            _passengerService.UpdatePassenger(id, person);
 
             return Ok();
         }
