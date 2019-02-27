@@ -36,7 +36,9 @@ namespace WingsOn.Bll.Services
 
         public IEnumerable<Person> GetFlightPassengers(string number)
         {
-            return _bookingRepository.GetAll().Where(booking => booking.Flight.Number == number).SelectMany(flight => flight.Passengers);
+            return _flightRepository.GetAll().Any(flight => flight.Number == number) 
+                ? _bookingRepository.GetAll().Where(booking => booking.Flight.Number == number).SelectMany(flight => flight.Passengers)
+                : null;
         }
     }
 }

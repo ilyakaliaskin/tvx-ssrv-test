@@ -36,6 +36,11 @@ namespace WingsOn.Api.Controllers
         {
             var passenger = Mapper.Map<PersonDto>(_passengerService.GetPassenger(id));
 
+            if (passenger == null)
+            {
+                return NotFound();
+            }
+
             return new JsonResult(passenger);
         }
 
@@ -53,7 +58,12 @@ namespace WingsOn.Api.Controllers
         public ActionResult Patch(int id, [FromBody] JsonPatchDocument<PersonDto> personPatch)
         {
             var personDto = Mapper.Map<PersonDto>(_passengerService.GetPassenger(id));
-            
+
+            if (personDto == null)
+            {
+                return NotFound();
+            }
+
             personPatch.ApplyTo(personDto);
 
             var person = Mapper.Map<Person>(personDto);
