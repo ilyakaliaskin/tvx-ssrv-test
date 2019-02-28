@@ -39,6 +39,11 @@ namespace WingsOn.Bll.Services
 
             var flight = _flightRepository.Get(createBooking.FlightId);
 
+            if (flight == null)
+            {
+                return null;
+            }
+
             var passenger = _passengerService.CreatePassenger(createBooking.Passenger);
 
             var booking = new Booking
