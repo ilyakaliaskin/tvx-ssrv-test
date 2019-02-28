@@ -19,7 +19,7 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult<List<BookingDto>> Get()
         {
             var bookings = Mapper.Map<List<BookingDto>>(_bookingService.GetBookings());
 
@@ -27,7 +27,7 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public ActionResult<BookingDto> Get(int id)
         {
             var booking = Mapper.Map<BookingDto>(_bookingService.GetBooking(id));
 
@@ -40,11 +40,16 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] CreateBookingDto createBookingDto)
+        public ActionResult<BookingDto> Post([FromBody] CreateBookingDto createBookingDto)
         {
             var createBooking = Mapper.Map<CreateBooking>(createBookingDto);
 
             var booking = Mapper.Map<BookingDto>(_bookingService.CreateBooking(createBooking));
+
+            if (booking == null)
+            {
+                return BadRequest();
+            }
 
             return new JsonResult(booking);
         }

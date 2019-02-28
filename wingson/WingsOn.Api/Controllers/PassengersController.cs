@@ -22,7 +22,7 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get([FromQuery] PassengerQuery passengerQuery)
+        public ActionResult<List<PersonDto>> Get([FromQuery] PassengerQuery passengerQuery)
         {
             var passengerSearch = Mapper.Map<PassengerQuery, PersonSearchCriterion>(passengerQuery);
 
@@ -32,7 +32,7 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public ActionResult<PersonDto> Get(int id)
         {
             var passenger = Mapper.Map<PersonDto>(_passengerService.GetPassenger(id));
 

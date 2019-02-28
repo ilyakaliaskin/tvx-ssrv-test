@@ -18,14 +18,14 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult<List<FlightDto>> Get()
         {
             var flights = Mapper.Map<List<FlightDto>>(_flightService.GetFlights());
             return new JsonResult(flights);
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult Get(int id)
+        public ActionResult<FlightDto> Get(int id)
         {
             var flight = Mapper.Map<FlightDto>(_flightService.GetFlight(id));
 
@@ -38,7 +38,7 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpGet("{number}")]
-        public ActionResult Get(string number)
+        public ActionResult<FlightDto> Get(string number)
         {
             var flight = Mapper.Map<FlightDto>(_flightService.GetFlight(number));
 
@@ -51,7 +51,7 @@ namespace WingsOn.Api.Controllers
         }
 
         [HttpGet("{number}/passengers")]
-        public ActionResult GetFlightPassengers(string number)
+        public ActionResult<List<PersonDto>> GetFlightPassengers(string number)
         {
             var passengers = Mapper.Map<List<PersonDto>>(_flightService.GetFlightPassengers(number));
             
