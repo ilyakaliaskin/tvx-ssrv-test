@@ -28,16 +28,31 @@ namespace WingsOn.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            ConfigureMapper();
+
+            ConfigureRepositories(services);
+
+            ConfigureBllServices(services);
+        }
+
+        private void ConfigureBllServices(IServiceCollection services)
+        {
             services.AddSingleton<IPassengerService, PassengerService>();
             services.AddSingleton<IFlightService, FlightService>();
             services.AddSingleton<IBookingService, BookingService>();
+        }
 
+        private void ConfigureRepositories(IServiceCollection services)
+        {
             services.AddSingleton<IRepository<Person>, PersonRepository>();
             services.AddSingleton<IRepository<Flight>, FlightRepository>();
             services.AddSingleton<IRepository<Booking>, BookingRepository>();
             services.AddSingleton<IRepository<Airport>, AirportRepository>();
             services.AddSingleton<IRepository<Airline>, AirlineRepository>();
+        }
 
+        private void ConfigureMapper()
+        {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Person, PersonDto>();
                 cfg.CreateMap<PersonDto, Person>();
