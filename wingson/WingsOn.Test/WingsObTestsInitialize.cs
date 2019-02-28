@@ -1,10 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using WingsOn.Api.Controllers;
-using WingsOn.Api.Models;
-using WingsOn.Bll.Services;
 using WingsOn.Dal;
 using WingsOn.Domain;
 using WingsOn.Test.Fixtures;
