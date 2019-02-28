@@ -1,4 +1,5 @@
-﻿using WingsOn.Domain;
+﻿using System.Collections.Generic;
+using WingsOn.Domain;
 
 namespace WingsOn.Bll.Models
 {
@@ -6,6 +7,6 @@ namespace WingsOn.Bll.Models
     {
         public int FlightId { get; set; }
 
-        public Person Passenger { get; set; }
+        public IEnumerable<Person> Passengers { get; set; }
     }
 }

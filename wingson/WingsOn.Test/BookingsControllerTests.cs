@@ -87,7 +87,7 @@ namespace WingsOn.Test
             var createBookingDto = new CreateBookingDto
             {
                 FlightId = 1,
-                Passenger = new PersonDto()
+                Passengers = new List<PersonDto>()
             };
 
             var result = _bookingsController.Post(createBookingDto)?.Result;
@@ -106,9 +106,9 @@ namespace WingsOn.Test
             var createBookingDto = new CreateBookingDto
             {
                 FlightId = flightId,
-                Passenger = new PersonDto
+                Passengers = new List<PersonDto>
                 {
-                    Name = passengerName
+                    new PersonDto { Name = passengerName }
                 }
             };
 
@@ -138,9 +138,9 @@ namespace WingsOn.Test
             var createBookingDto = new CreateBookingDto
             {
                 FlightId = flightId,
-                Passenger = new PersonDto
+                Passengers = new List<PersonDto>
                 {
-                    Name = passengerName
+                    new PersonDto { Name = passengerName }
                 }
             };
 
@@ -167,7 +167,7 @@ namespace WingsOn.Test
             var createBookingDto = new CreateBookingDto
             {
                 FlightId = flightId,
-                Passenger = new PersonDto()
+                Passengers = new List<PersonDto>()
             };
 
             var createdBooking = (_bookingsController.Post(createBookingDto)?.Result as JsonResult)?.Value as BookingDto;
@@ -191,7 +191,7 @@ namespace WingsOn.Test
             var createBookingDto = new CreateBookingDto
             {
                 FlightId = invalidBookingId,
-                Passenger = new PersonDto()
+                Passengers = new List<PersonDto>()
             };
 
             var result = _bookingsController.Post(createBookingDto)?.Result;

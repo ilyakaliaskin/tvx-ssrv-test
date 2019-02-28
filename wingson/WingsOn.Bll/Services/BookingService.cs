@@ -44,13 +44,18 @@ namespace WingsOn.Bll.Services
                 return null;
             }
 
-            var passenger = _passengerService.CreatePassenger(createBooking.Passenger);
+            var createdPassengers = new List<Person>();
+
+            foreach (var passenger in createBooking.Passengers)
+            {
+                createdPassengers.Add(_passengerService.CreatePassenger(passenger));
+            }
 
             var booking = new Booking
             {
                 Id = bookingId,
                 Flight = flight,
-                Passengers = new[] { passenger }
+                Passengers = createdPassengers
             };
             
             _bookingRepository.Save(booking);
