@@ -12,7 +12,7 @@ using Xunit;
 
 namespace WingsOn.Test
 {
-    public class BookingControllerTests : WingsObTestsInitialize
+    public class BookingsControllerTests : WingsObTestsInitialize
     {
         private readonly IRepository<Booking> _bookingRepository;
 
@@ -20,7 +20,7 @@ namespace WingsOn.Test
 
         private readonly BookingsController _bookingsController;
 
-        public BookingControllerTests(DependenciesFixture dependenciesFixture)
+        public BookingsControllerTests(DependenciesFixture dependenciesFixture)
             : base(dependenciesFixture)
         {
             _bookingRepository = ServiceProvider.GetService<IRepository<Booking>>();
@@ -98,7 +98,6 @@ namespace WingsOn.Test
         [Fact]
         public void Post_ValidBookingPassed_CreatesNewBooking()
         {
-            // Get the list of bookings before creation
             var bookingsBeforeCreation = _bookingRepository.GetAll().ToList();
 
             var passengerName = "New Passenger Test";
@@ -113,13 +112,10 @@ namespace WingsOn.Test
                 }
             };
 
-            // Create new booking
             _bookingsController.Post(createBookingDto);
 
-            // Get the list of bookings after creation
             var bookingsAfterCreation = _bookingRepository.GetAll().ToList();
 
-            // Verify that the difference between old and new lists of bookings is the newly created booking.
             var difference = bookingsAfterCreation.Except(bookingsBeforeCreation).ToList();
             
             Assert.Single(difference);
@@ -134,7 +130,6 @@ namespace WingsOn.Test
         [Fact]
         public void Post_ValidBookingPassed_CreatesNewPerson()
         {
-            // Get the people before creation
             var peopleBeforeCreation = _personRepository.GetAll().ToList();
 
             var passengerName = "New Passenger Test";
@@ -149,13 +144,10 @@ namespace WingsOn.Test
                 }
             };
 
-            // Create new booking
             _bookingsController.Post(createBookingDto);
 
-            // Get the people after creation
             var peopleAfterCreation = _personRepository.GetAll().ToList();
 
-            // Verify that the difference between old and updated lists of persons.
             var difference = peopleAfterCreation.Except(peopleBeforeCreation).ToList();
 
             Assert.Single(difference);
@@ -168,7 +160,6 @@ namespace WingsOn.Test
         [Fact]
         public void Post_ValidBookingPassed_ReturnsCreatedBooking()
         {
-            // Get the list of bookings before creation
             var bookingsBeforeCreation = _bookingRepository.GetAll().ToList();
 
             var flightId = 1;
@@ -179,15 +170,12 @@ namespace WingsOn.Test
                 Passenger = new PersonDto()
             };
 
-            // Create new booking
             var createdBooking = (_bookingsController.Post(createBookingDto)?.Result as JsonResult)?.Value as BookingDto;
 
             Assert.False(createdBooking == null);
 
-            // Get the list of bookings after creation
             var bookingsAfterCreation = _bookingRepository.GetAll().ToList();
 
-            // Verify that the difference between old and new list of bookings is the newly created booking.
             var difference = bookingsAfterCreation.Except(bookingsBeforeCreation).FirstOrDefault();
 
             Assert.False(difference == null);
