@@ -134,7 +134,5 @@ namespace WingsOn.Test
 
             Assert.IsType<NotFoundResult>(result);
         }
-
-
     }
 }
