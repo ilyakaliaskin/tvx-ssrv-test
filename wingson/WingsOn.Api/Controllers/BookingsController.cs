@@ -41,11 +41,6 @@ namespace WingsOn.Api.Controllers
 
             var booking = Mapper.Map<BookingDto>(_bookingService.CreateBooking(createBooking));
 
-            if (booking == null)
-            {
-                return BadRequest();
-            }
-
             return new JsonResult(booking);
         }
     }
