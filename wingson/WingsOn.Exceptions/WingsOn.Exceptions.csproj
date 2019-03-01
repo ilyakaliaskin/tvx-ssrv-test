@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24ABBF1C-237E-4C6C-A4C6-1AE2C2111F6F}</ProjectGuid>
+    <ProjectGuid>{CACB5242-BCF7-4B19-BBD7-EC4E49775797}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WingsOn.Bll</RootNamespace>
-    <AssemblyName>WingsOn.Bll</AssemblyName>
+    <RootNamespace>WingsOn.Exceptions</RootNamespace>
+    <AssemblyName>WingsOn.Exceptions</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,29 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CreateBooking.cs" />
-    <Compile Include="SearchCriteria\PersonSearchCriterion.cs" />
-    <Compile Include="Services\BookingService.cs" />
-    <Compile Include="Services\IBookingService.cs" />
-    <Compile Include="Services\IFlightService.cs" />
-    <Compile Include="Services\IPassengerService.cs" />
-    <Compile Include="Services\FlightService.cs" />
-    <Compile Include="Services\PassengerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WingsOn.Dal\WingsOn.Dal.csproj">
-      <Project>{2b68b6a5-72f1-4dd8-849c-b0a7365a0480}</Project>
-      <Name>WingsOn.Dal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WingsOn.Domain\WingsOn.Domain.csproj">
-      <Project>{f1792ed2-360f-4864-8a3d-3faae3e9fc4b}</Project>
-      <Name>WingsOn.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WingsOn.Exceptions\WingsOn.Exceptions.csproj">
-      <Project>{cacb5242-bcf7-4b19-bbd7-ec4e49775797}</Project>
-      <Name>WingsOn.Exceptions</Name>
-    </ProjectReference>
+    <Compile Include="InvalidRequestDataException.cs" />
+    <Compile Include="ResourceNotFoundException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

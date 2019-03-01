@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WingsOn.Api.Middleware;
 using WingsOn.Api.Models;
 using WingsOn.Api.Queries;
 using WingsOn.Bll.Models;
@@ -76,6 +77,8 @@ namespace WingsOn.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseMvc();
         }

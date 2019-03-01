@@ -3,6 +3,7 @@ using System.Linq;
 using WingsOn.Bll.Models;
 using WingsOn.Dal;
 using WingsOn.Domain;
+using WingsOn.Exceptions;
 
 namespace WingsOn.Bll.Services
 {
@@ -30,19 +31,18 @@ namespace WingsOn.Bll.Services
 
         public Booking GetBooking(int id)
         {
-            return _bookingRepository.Get(id);
+            return _bookingRepository.Get(id)
+
+                ?? throw new ResourceNotFoundException($"Booking with the Id specified does not exist: {id}.");
         }
 
         public Booking CreateBooking(CreateBooking createBooking)
         {
             var bookingId = GetNewBookingId();
 
-            var flight = _flightRepository.Get(createBooking.FlightId);
+            var flight = _flightRepository.Get(createBooking.FlightId)
 
-            if (flight == null)
-            {
-                return null;
-            }
+                ?? throw new InvalidRequestDataException($"Failed to create new booking, flight with the Id specified does not exist: {createBooking.FlightId}");
 
             var createdPassengers = new List<Person>();
 

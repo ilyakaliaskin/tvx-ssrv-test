@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WingsOn.Api.Controllers;
 using WingsOn.Api.Models;
 using WingsOn.Bll.Services;
+using WingsOn.Exceptions;
 using WingsOn.Test.Fixtures;
 using Xunit;
 
@@ -61,11 +62,9 @@ namespace WingsOn.Test
         [InlineData(10)]
         [InlineData(9999)]
         [InlineData(-1)]
-        public void Get_NonexistingIdSpecified_ReturnsNotFound(int id)
+        public void Get_NonexistingIdSpecified_ThrowsResourceNotFoundException(int id)
         {
-            var result = _flightsController.Get(id)?.Result;
-
-            Assert.IsType<NotFoundResult>(result);
+            Assert.Throws<ResourceNotFoundException>(() => _flightsController.Get(id));
         }
 
         [Theory]
@@ -96,11 +95,9 @@ namespace WingsOn.Test
         [InlineData("A2")]
         [InlineData("XX")]
         [InlineData("")]
-        public void Get_NonexistingNumberSpecified_ReturnsNotFound(string number)
+        public void Get_NonexistingNumberSpecified_ThrowsResourceNotFoundException(string number)
         {
-            var result = _flightsController.Get(number)?.Result;
-
-            Assert.IsType<NotFoundResult>(result);
+            Assert.Throws<ResourceNotFoundException>(() => _flightsController.Get(number));
         }
 
         [Theory]
@@ -128,11 +125,9 @@ namespace WingsOn.Test
         [InlineData("A2")]
         [InlineData("XX")]
         [InlineData("")]
-        public void GetFlightPassengers_NonexistingNumberSpecified_ReturnsNotFound(string number)
+        public void GetFlightPassengers_NonexistingNumberSpecified_ThrowsResourceNotFoundException(string number)
         {
-            var result = _flightsController.GetFlightPassengers(number)?.Result;
-
-            Assert.IsType<NotFoundResult>(result);
+            Assert.Throws<ResourceNotFoundException>(() => _flightsController.GetFlightPassengers(number));
         }
     }
 }

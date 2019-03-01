@@ -7,6 +7,7 @@ using WingsOn.Api.Models;
 using WingsOn.Bll.Services;
 using WingsOn.Dal;
 using WingsOn.Domain;
+using WingsOn.Exceptions;
 using WingsOn.Test.Fixtures;
 using Xunit;
 
@@ -74,11 +75,9 @@ namespace WingsOn.Test
         [InlineData(5)]
         [InlineData(9999)]
         [InlineData(-1)]
-        public void Get_NonexistingIdSpecified_ReturnsNotFound(int id)
+        public void Get_NonexistingIdSpecified_ThrowsResourceNotFoundException(int id)
         {
-            var result = _bookingsController.Get(id)?.Result;
-
-            Assert.IsType<NotFoundResult>(result);
+            Assert.Throws<ResourceNotFoundException>(() => _bookingsController.Get(id));
         }
 
         [Fact]
@@ -184,7 +183,7 @@ namespace WingsOn.Test
         }
 
         [Fact]
-        public void Post_NonExistentFlightSpecified_ReturnsBadRequest()
+        public void Post_NonExistentFlightSpecified_ThrowsInvalidRequestDataException()
         {
             var invalidBookingId = -1;
 
@@ -194,9 +193,7 @@ namespace WingsOn.Test
                 Passengers = new List<PersonDto>()
             };
 
-            var result = _bookingsController.Post(createBookingDto)?.Result;
-
-            Assert.IsType<BadRequestResult>(result);
+            Assert.Throws<InvalidRequestDataException>(() => _bookingsController.Post(createBookingDto));
         }
     }
 }

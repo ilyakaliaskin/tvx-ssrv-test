@@ -2,6 +2,7 @@
 using System.Linq;
 using WingsOn.Dal;
 using WingsOn.Domain;
+using WingsOn.Exceptions;
 
 namespace WingsOn.Bll.Services
 {
@@ -26,19 +27,25 @@ namespace WingsOn.Bll.Services
 
         public Flight GetFlight(int id)
         {
-            return _flightRepository.Get(id);
+            return _flightRepository.Get(id)
+
+                ?? throw new ResourceNotFoundException($"Flight with the Id specified does not exist: {id}.");
         }
 
         public Flight GetFlight(string number)
         {
-            return _flightRepository.GetAll().FirstOrDefault(flight => flight.Number == number);
+            return _flightRepository.GetAll().FirstOrDefault(flight => flight.Number == number)
+
+                ?? throw new ResourceNotFoundException($"Flight with the number specified does not exist: {number}.");
         }
 
         public IEnumerable<Person> GetFlightPassengers(string number)
         {
-            return _flightRepository.GetAll().Any(flight => flight.Number == number) 
+            return _flightRepository.GetAll().Any(flight => flight.Number == number)
+
                 ? _bookingRepository.GetAll().Where(booking => booking.Flight.Number == number).SelectMany(flight => flight.Passengers)
-                : null;
+
+                : throw new ResourceNotFoundException($"Flight with the number specified does not exist: {number}.");
         }
     }
 }

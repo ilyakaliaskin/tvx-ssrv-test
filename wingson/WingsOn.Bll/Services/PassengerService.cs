@@ -3,6 +3,7 @@ using System.Linq;
 using WingsOn.Bll.SearchCriteria;
 using WingsOn.Dal;
 using WingsOn.Domain;
+using WingsOn.Exceptions;
 
 namespace WingsOn.Bll.Services
 {
@@ -22,7 +23,9 @@ namespace WingsOn.Bll.Services
 
         public Person GetPassenger(int id)
         {
-            return _personRepository.Get(id);
+            return _personRepository.Get(id)
+
+                ?? throw new ResourceNotFoundException($"Passenger with the Id specified does not exist: {id}.");
         }
 
         public Person CreatePassenger(Person passenger)

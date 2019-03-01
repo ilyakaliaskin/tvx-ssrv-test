@@ -18,6 +18,7 @@
     <ProjectReference Include="..\WingsOn.Bll\WingsOn.Bll.csproj" />
     <ProjectReference Include="..\WingsOn.Dal\WingsOn.Dal.csproj" />
     <ProjectReference Include="..\WingsOn.Domain\WingsOn.Domain.csproj" />
+    <ProjectReference Include="..\WingsOn.Exceptions\WingsOn.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>
